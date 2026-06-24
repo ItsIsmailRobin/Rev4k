@@ -96,11 +96,13 @@ export default function App() {
                   {titleCase('Watch Crystal-Clear Live Stream Anywhere.')}
                 </h1>
 
-                <p
+<p
                   className="text-white/55 text-sm sm:text-base max-w-xl leading-relaxed anim-fade-in"
                   style={{ animationDelay: '380ms' }}
                 >
-                  {titleCase('A Minimal, Modern 4K FIFA Streaming Experience Powered By Team NoScope eSports. Delivering Next-Gen Visuals and Silky Adaptive Playback. Developed By ')}
+                  {titleCase('A Minimal, Modern 4K FIFA Streaming Experience Powered By Team NoScope eSports. Delivering Next-Gen Visuals and Silky Adaptive Playback.')}
+                  <br />
+                  {titleCase('Developed By ')}
                   <span className="rev-credit">{titleCase('Rev71')}</span>
                   {titleCase('.')}
                 </p>
