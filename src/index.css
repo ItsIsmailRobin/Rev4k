@@ -1,0 +1,385 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+  html {
+    height: 100%;
+    background: #000;
+  }
+  body {
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+    background: #000;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-tap-highlight-color: transparent;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
+  }
+  #root {
+    min-height: 100%;
+  }
+
+  /* Smooth out everything by default — reduces jitter on transforms */
+  *, *::before, *::after {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+  html {
+    scroll-behavior: smooth;
+    text-rendering: optimizeLegibility;
+  }
+  img, video, svg, canvas {
+    display: block;
+    max-width: 100%;
+  }
+}
+
+@layer utilities {
+  /* iOS Glass effect — frosted backdrop blur with subtle inner highlight */
+  .ios-glass {
+    background: rgba(28, 28, 30, 0.42);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    box-shadow:
+      0 1px 0 0 rgba(255, 255, 255, 0.08) inset,
+      0 0 0 0.5px rgba(255, 255, 255, 0.05) inset,
+      0 8px 32px rgba(0, 0, 0, 0.35);
+  }
+  .ios-glass-strong {
+    background: rgba(20, 20, 22, 0.55);
+    backdrop-filter: blur(30px) saturate(200%);
+    -webkit-backdrop-filter: blur(30px) saturate(200%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+  }
+  .ios-pill {
+    background: rgba(255, 255, 255, 0.10);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow:
+      0 1px 0 0 rgba(255, 255, 255, 0.10) inset,
+      0 4px 16px rgba(0, 0, 0, 0.20);
+  }
+  .ios-button {
+    background: rgba(255, 255, 255, 0.10);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow:
+      0 1px 0 0 rgba(255, 255, 255, 0.10) inset,
+      0 2px 8px rgba(0, 0, 0, 0.18);
+    transition: transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1),
+                background 200ms ease,
+                border-color 200ms ease;
+  }
+  .ios-button:hover {
+    background: rgba(255, 255, 255, 0.16);
+    border-color: rgba(255, 255, 255, 0.18);
+  }
+  .ios-button:active {
+    transform: scale(0.92);
+    background: rgba(255, 255, 255, 0.22);
+  }
+  .ios-icon {
+    background: rgba(255, 255, 255, 0.10);
+    backdrop-filter: blur(18px) saturate(180%);
+    -webkit-backdrop-filter: blur(18px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow:
+      0 1px 0 0 rgba(255, 255, 255, 0.10) inset,
+      0 6px 18px rgba(0, 0, 0, 0.25);
+    transition: transform 250ms cubic-bezier(0.34, 1.56, 0.64, 1),
+                background 250ms ease;
+  }
+  .ios-icon:hover {
+    background: rgba(255, 255, 255, 0.18);
+  }
+  .ios-icon:active {
+    transform: scale(0.88);
+  }
+
+  /* Animations */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-14px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-18px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes slideInRight {
+    from { opacity: 0; transform: translateX(18px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.96); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  @keyframes pulseLive {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(0.92); }
+  }
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+  /* StreamStatus animations */
+  @keyframes dotHalo {
+    0%, 100% { transform: scale(0.8); opacity: 0.4; }
+    50%      { transform: scale(1.6); opacity: 0; }
+  }
+  @keyframes dotCore {
+    0%, 100% { transform: scale(1);   opacity: 1; }
+    50%      { transform: scale(1.25); opacity: 0.7; }
+  }
+  @keyframes spinnerSpin {
+    to { transform: rotate(360deg); }
+  }
+  @keyframes tickRing {
+    to { stroke-dashoffset: 0; }
+  }
+  @keyframes tickDraw {
+    to { stroke-dashoffset: 0; }
+  }
+  @keyframes tickRingPop {
+    0%   { transform: scale(0);   opacity: 0.4; }
+    70%  { transform: scale(1.12); opacity: 1; }
+    100% { transform: scale(1);   opacity: 1; }
+  }
+  @keyframes dotBlink {
+    0%, 100% { opacity: 0.25; transform: scale(0.85); }
+    50%      { opacity: 1;    transform: scale(1.1); }
+  }
+  /* Footer three-dot "..." indicator — pulses one dot at a time, like a
+     typing indicator, but kept purple (#9b2ec9) to match the rest of the
+     footer accent. */
+  @keyframes footerDotPulse {
+    0%, 60%, 100% { opacity: 0.30; transform: scale(0.85); }
+    30%           { opacity: 1.00; transform: scale(1.15); }
+  }
+
+  /* Hover effects */
+  /* Logo (wordmark) — on hover the breath glow brightens slightly + the
+     subline tints to white. Reuses the existing headerBreath keyframe
+     range so the resting state stays subtle. */
+  .logo-hover:hover .header-wordmark {
+    text-shadow:
+      0 0 12px rgba(217, 70, 239, 0.75),
+      0 0 28px rgba(139, 92, 246, 0.45);
+  }
+
+  /* CTA button — on hover the card scales up 3% and the play pill turns
+     violet. We use a child selector so the pill inherits from the group's
+     hover state. */
+  .cta-hover {
+    will-change: transform;
+  }
+  .cta-hover:hover {
+    transform: scale(1.04);
+  }
+  /* When the CTA is hovered, its play pill gets a stronger violet glow */
+  .cta-hover:hover .play-pill {
+    box-shadow:
+      0 0 0 1px rgba(255,255,255,0.15) inset,
+      0 0 14px rgba(167, 139, 250, 0.85),
+      0 0 28px rgba(167, 139, 250, 0.55);
+  }
+  .play-pill {
+    box-shadow: 0 0 0 0 rgba(0,0,0,0);
+    transition: background-color 300ms ease, box-shadow 300ms ease;
+  }
+  /* Slow, subtle breathing for the developer icon — opacity + tiny scale,
+     not a glow. ~4s loop so it feels alive without being distracting. */
+  @keyframes devBreath {
+    0%, 100% { opacity: 0.70; transform: scale(1); }
+    50%      { opacity: 1.00; transform: scale(1.08); }
+  }
+  .dev-icon-anim {
+    animation: devBreath 4.2s ease-in-out infinite;
+    transform-origin: center;
+    will-change: opacity, transform;
+  }
+
+  /* Header wordmark — same slow-breath vibe as the footer, slightly different
+     range/timing so it doesn't sync with the footer pulse. */
+  .header-wordmark {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: #ffffff;
+    line-height: 1.05;
+    font-size: 18px;
+    /* Subtle glow — visible but not loud. Breathes with the animation. */
+    text-shadow:
+      0 0 6px rgba(217, 70, 239, 0.30),
+      0 0 14px rgba(139, 92, 246, 0.18);
+  }
+  @media (min-width: 640px) {
+    .header-wordmark { font-size: 20px; }
+  }
+  .header-sub {
+    margin-top: 2px;
+    line-height: 1;
+  }
+  .header-breath {
+    animation: headerBreath 5s ease-in-out infinite;
+    transform-origin: left center;
+    will-change: opacity, transform, text-shadow;
+  }
+  @keyframes headerBreath {
+    0%, 100% {
+      opacity: 0.92;
+      transform: scale(1);
+      text-shadow:
+        0 0 5px rgba(217, 70, 239, 0.28),
+        0 0 12px rgba(139, 92, 246, 0.16);
+    }
+    50% {
+      opacity: 1.00;
+      transform: scale(1.012);
+      text-shadow:
+        0 0 9px rgba(217, 70, 239, 0.50),
+        0 0 20px rgba(139, 92, 246, 0.32);
+    }
+  }
+  /* Discord icon — same breath as the wordmark, slightly faster. */
+  .dc-icon-anim {
+    animation: dcBreath 5s ease-in-out infinite;
+    transform-origin: center;
+    will-change: opacity, transform;
+    padding: 4px;
+    border-radius: 8px;
+    display: inline-flex;
+  }
+  @keyframes dcBreath {
+    0%, 100% { opacity: 0.78; transform: scale(1); }
+    50%      { opacity: 1.00; transform: scale(1.06); }
+  }
+  .anim-fade-in       { animation: fadeIn 500ms ease-out both; }
+  .anim-slide-up      { animation: slideUp 600ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .anim-slide-down    { animation: slideDown 600ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .anim-slide-left    { animation: slideInLeft 600ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .anim-slide-right   { animation: slideInRight 600ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .anim-scale-in      { animation: scaleIn 600ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .anim-pulse-live    { animation: pulseLive 1.6s ease-in-out infinite; }
+  .anim-spin          { animation: spin 1s linear infinite; }
+
+  /* Hide native video controls on iOS */
+  video::-webkit-media-controls { display: none !important; }
+  video::-webkit-media-controls-enclosure { display: none !important; }
+  video::-webkit-media-controls-panel { display: none !important; }
+  video::-internal-media-controls-overlay-cast-button { display: none !important; }
+}
+
+/* Progress bar styling */
+.range-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+.range-slider::-webkit-slider-runnable-track {
+  height: 4px;
+  background: transparent;
+  border-radius: 999px;
+}
+.range-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 14px;
+  width: 14px;
+  border-radius: 50%;
+  background: white;
+  margin-top: -5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  transition: transform 150ms ease;
+}
+.range-slider:active::-webkit-slider-thumb {
+  transform: scale(1.25);
+}
+.range-slider::-moz-range-track {
+  height: 4px;
+  background: transparent;
+  border-radius: 999px;
+}
+.range-slider::-moz-range-thumb {
+  height: 14px;
+  width: 14px;
+  border-radius: 50%;
+  background: white;
+  border: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* Footer — plain centered row. No background, no blur, no border, no shadow.
+   Single line with the animated developer icon + the word "Revenger".
+   cursor: default so the I-beam text cursor never appears. */
+.footer-plain {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  cursor: default;
+}
+.footer-plain > div {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  cursor: default;
+}
+/* "Rev71" credit in the description paragraph — slightly brighter than the
+   surrounding text so it stands out as the developer signature. */
+.rev-credit {
+  color: rgba(255, 255, 255, 0.92);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+/* Footer — single line. On hover the text brightens and gets a soft glow,
+   the opacity ramps to 1, and the cursor stays a default pointer. */
+.footer-hover {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.65);
+  opacity: 0.65;
+  cursor: default;
+  user-select: none;
+  -webkit-user-select: none;
+  transition:
+    color 250ms ease,
+    opacity 250ms ease,
+    text-shadow 250ms ease;
+}
+.footer-hover:hover {
+  color: rgba(255, 255, 255, 0.95);
+  opacity: 1;
+  /* Very subtle, minimal glow — single tight halo. */
+  text-shadow: 0 0 6px rgba(217, 70, 239, 0.30);
+}
+
+/* Status row (fetch indicator) — tight gap, no padding, single baseline.
+   Used by the StreamStatus pill next to the Start Watching button. */
+.status-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+  line-height: 1;
+}
