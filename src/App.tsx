@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import HlsPlayer, { HLS_SRC } from './components/HlsPlayer';
+import HlsPlayer from './components/HlsPlayer';
 import type { StreamStatus as StreamStatusType } from './components/HlsPlayer';
 import StreamStatusView from './components/StreamStatus';
+import { useStreamUrl } from './hooks/useStreamUrl';
 import { Play, Radio, Smartphone } from 'lucide-react';
 // Custom inline-SVG icons
 import { DiscordIcon } from './components/DiscordIcon';
@@ -15,6 +16,10 @@ export default function App() {
   // next to the Start Watching button. Starts in 'connecting' so the very
   // first paint already shows progress (no idle/blank state).
   const [streamStatus, setStreamStatus] = useState<StreamStatusType>('connecting');
+
+  // The HLS manifest URL is fetched at runtime from /stream.txt so it
+  // never appears hardcoded in the bundled JS.
+  const { url: streamUrl } = useStreamUrl();
 
   return (
     <div className="min-h-screen w-full bg-gradient-to-br from-slate-950 via-zinc-950 to-black text-white relative overflow-x-hidden">
@@ -134,6 +139,7 @@ export default function App() {
                 style={{ animationDelay: '180ms' }}
               >
                 <PreviewCard
+                  src={streamUrl ?? ''}
                   onPlay={() => setOpenFs(true)}
                   onStatusChange={setStreamStatus}
                 />
@@ -186,10 +192,10 @@ export default function App() {
 
       {/* Fullscreen player overlay — fixed inset, fills viewport edge-to-edge so
           the top/bottom control bands sit flush with no black gap. */}
-      {openFs && (
+      {openFs && streamUrl && (
         <div className="fixed inset-0 z-50 w-screen h-screen bg-black">
           <HlsPlayer
-            src={HLS_SRC}
+            src={streamUrl}
             title="FIFA World Cup 2026"
             startFullscreen
             onClose={() => setOpenFs(false)}
@@ -207,9 +213,11 @@ export default function App() {
    stay muted in the background, making the card feel "player-like" instead
    of raw video. */
 function PreviewCard({
+  src,
   onPlay,
   onStatusChange,
 }: {
+  src: string;
   onPlay: () => void;
   onStatusChange: (s: StreamStatusType) => void;
 }) {
@@ -232,14 +240,16 @@ function PreviewCard({
           transition: 'filter 300ms ease, transform 300ms ease',
         }}
       >
-        <HlsPlayer
-          src={HLS_SRC}
-          title="FIFA World Cup 2026"
-          autoplayMuted
-          inline
-          hideControls
-          onStatusChange={onStatusChange}
-        />
+        {src && (
+          <HlsPlayer
+            src={src}
+            title="FIFA World Cup 2026"
+            autoplayMuted
+            inline
+            hideControls
+            onStatusChange={onStatusChange}
+          />
+        )}
       </div>
 
       {/* Subtle dark veil on top of the blurred video for contrast */}

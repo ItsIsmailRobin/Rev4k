@@ -33,8 +33,6 @@ interface HlsPlayerProps {
   onStatusChange?: (s: StreamStatus) => void;
 }
 
-const HLS_SRC = 'https://inproviszon.st/tsn4k.m3u8';
-
 export default function HlsPlayer({
   src,
   poster,
@@ -808,4 +806,3 @@ export default function HlsPlayer({
   );
 }
 
-export { HLS_SRC };
