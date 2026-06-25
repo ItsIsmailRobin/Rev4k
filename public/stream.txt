@@ -1,1 +1,1 @@
-https://stream-fetch-blond.vercel.app/stream.m3u8
+https://602.mercadodavoz.com.br/fox.m3u8
