@@ -1,1 +1,1 @@
-
+https://stream-fetch-blond.vercel.app/stream.m3u8
