@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react';
  * this string and the app will surface a clear "Stream Fetch Failed"
  * status instead.
  */
-const FALLBACK_URL = 'https://inproviszon.st/tsn4k.m3u8';
+const FALLBACK_URL = 'https://no.gendigi.net/origin-proxy/chunklist.m3u8';
 
 /**
  * Resolves the HLS manifest URL.
