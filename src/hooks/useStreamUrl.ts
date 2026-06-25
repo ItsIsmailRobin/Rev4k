@@ -30,7 +30,7 @@ const FALLBACK_URL = 'https://inproviszon.st/tsn4k.m3u8';
  *
  * Defaults to `/stream.txt`.
  */
-export function useStreamUrl(source: string = 'https://stream-fetch-blond.vercel.app/stream.txt') {
+export function useStreamUrl(source: string = '/stream.txt') {
   // Direct .m3u8 URL? Use it immediately, no fetch.
   const isDirectUrl = /^https?:\/\/.*\.(m3u8|m3u)(\?|$)/i.test(source);
 
